@@ -1,0 +1,30 @@
+{
+    "name": "matin-utils/fileman",
+    "description": "a utility for managing file and connect with File Center Service",
+    "type": "library",
+    "license": "Matin Int Group Licence",
+    "authors": [
+        {
+            "name": "xani",
+            "email": "xaniatmatin@gmail.com"
+        }
+    ],
+    "require": {},
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MatinUtils\\FileMan\\ServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "classmap": [],
+        "files": [
+            "Functions.php"
+        ],
+        "psr-4": {
+            "MatinUtils\\FileMan\\": "src/"
+        }
+    }
+}
