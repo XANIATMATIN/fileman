@@ -2,7 +2,7 @@
     "name": "matin-utils/fileman",
     "description": "a utility for managing file and connect with File Center Service",
     "type": "library",
-    "license": "Matin Int Group Licence",
+    "license": "MIT",
     "authors": [
         {
             "name": "xani",
