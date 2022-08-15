@@ -13,6 +13,9 @@ class ServiceProvider extends SupportServiceProvider
      */
     public function boot()
     {
+        $this->app->singleton('fileman', function ($app) {
+            return new Fileman;
+        });
     }
 
     /**
