@@ -4,6 +4,27 @@ namespace MatinUtils\FileMan;
 
 class Fileman
 {
+    public function copyToFolder($folder)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env("FILEMAN_HOST", "http://file-center.api") . "/translations/copyToFolder",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_HTTPHEADER => ['pid: ' . app('log-system')->getpid(), 'Content-Type: application/json'],
+            CURLOPT_POSTFIELDS => json_encode(['folder' => $folder]),
+        ));
+        $rawResponse = curl_exec($curl);
+        $response = json_decode($rawResponse, true);
+        return $response;
+    }
+
     public function insertTransItems($folders, $items)
     {
         $curl = curl_init();
