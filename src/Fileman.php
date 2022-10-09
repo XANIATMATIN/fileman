@@ -25,7 +25,7 @@ class Fileman
         return $response;
     }
 
-    public function insertTransItems($folders, $items)
+    public function insertTransItems($folders, $items, $updateCommonFiles = true)
     {
         $curl = curl_init();
 
@@ -39,7 +39,7 @@ class Fileman
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_HTTPHEADER => ['pid: ' . app('log-system')->getpid(), 'Content-Type: application/json'],
-            CURLOPT_POSTFIELDS => json_encode(['folders' => $folders, 'items' => $items]),
+            CURLOPT_POSTFIELDS => json_encode(['folders' => $folders, 'items' => $items, 'updateCommonFiles' => $updateCommonFiles]),
         ));
         $rawResponse = curl_exec($curl);
         $response = json_decode($rawResponse, true);
