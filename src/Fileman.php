@@ -9,7 +9,7 @@ class Fileman
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => env("FILEMAN_HOST", "http://file-center.api") . "/translations/copyToFolder",
+            CURLOPT_URL => (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/translations/copyToFolder",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -30,7 +30,7 @@ class Fileman
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => env("FILEMAN_HOST", "http://file-center.api") . "/translations/insert",
+            CURLOPT_URL => (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/translations/insert",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -51,7 +51,7 @@ class Fileman
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => env("FILEMAN_HOST", "http://file-center.api") . "/translations/remove",
+            CURLOPT_URL => (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/translations/remove",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -72,7 +72,7 @@ class Fileman
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => env("FILEMAN_HOST", "http://file-center.api") . "/check-url-array",
+            CURLOPT_URL => (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/check-url-array",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -105,7 +105,7 @@ class Fileman
         lugInfo('Sending upload request', ['url' => env("FILEMAN_HOST", "http://file-center.api") . "/check-url?url=$url&create=true&type=$type", 'requestedFile' => $file, 'isImage' => $isImage, 'type' => $type]);
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => env("FILEMAN_HOST", "http://file-center.api") . "/check-url?url=$url&create=true&type=$type",
+            CURLOPT_URL => (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/check-url?url=$url&create=true&type=$type",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -132,7 +132,7 @@ class Fileman
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $url = env("FILEMAN_HOST", "http://file-center.api") . "/create/$type",
+            CURLOPT_URL => $url = (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/create/$type",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -158,7 +158,7 @@ class Fileman
     function uploadDoc(string $filePath)
     {
         $downloadUrl = createFolder('document');
-        $url = env("FILEMAN_HOST", "http://file-center.api") . "/upload/" . $downloadUrl->date . '/' . $downloadUrl->token;
+        $url = (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/upload/" . $downloadUrl->date . '/' . $downloadUrl->token;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
@@ -189,7 +189,7 @@ class Fileman
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL =>  env('FILEMAN_HOST') . '/fetch-url/' . $date . '/' . $token,
+            CURLOPT_URL =>  (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . '/fetch-url/' . $date . '/' . $token,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
