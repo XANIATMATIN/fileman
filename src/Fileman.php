@@ -185,11 +185,11 @@ class Fileman
         return;
     }
 
-    function fetchUrl(string $date, string $token, string $originalUrl, string $method = 'POST')
+    function fetchUrl(string $date, string $token, string $originalUrl, string $method = 'POST', string $originalMethod = 'POST')
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL =>  (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . '/fetch-url/' . $date . '/' . $token,
+            CURLOPT_URL => $url = (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . '/fetch-url/' . $date . '/' . $token,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -198,10 +198,10 @@ class Fileman
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_HTTPHEADER => ['pid: ' . app('log-system')->getpid()],
-            CURLOPT_POSTFIELDS => array('originalUrl' => $originalUrl, 'storeUrl' => false, 'method' => $method, 'async' => 'true'),
+            CURLOPT_POSTFIELDS => $data = array('originalUrl' => $originalUrl, 'storeUrl' => false, 'method' => $method, 'async' => 'true', 'method' => $originalMethod),
         ));
         $response = curl_exec($curl);
-
+        // lugWarning('fetchUrl', ['data' => $data, 'URL' => $url, 'rawResponse' => $response, 'http-status-code' => curl_getinfo($curl, CURLINFO_HTTP_CODE)]);
         curl_close($curl);
         return $response;
     }
