@@ -4,10 +4,14 @@ namespace MatinUtils\FileMan;
 
 class Fileman
 {
-    public function copyToFolder($folder)
+    public function copyToFolder($folder, $lang = null)
     {
-        $curl = curl_init();
+        $data = ['folder' => $folder];
+        if (!empty($lang)) {
+            $data['lang'] = $lang;
+        }
 
+        $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => (nodeConfigs('FILEMAN_HOST') ?? env("FILEMAN_HOST", "http://file-center.api")) . "/translations/copyToFolder",
             CURLOPT_RETURNTRANSFER => true,
@@ -18,7 +22,7 @@ class Fileman
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_HTTPHEADER => ['pid: ' . app('log-system')->getpid(), 'Content-Type: application/json'],
-            CURLOPT_POSTFIELDS => json_encode(['folder' => $folder]),
+            CURLOPT_POSTFIELDS => json_encode($data),
         ));
         $rawResponse = curl_exec($curl);
         $response = json_decode($rawResponse, true);
